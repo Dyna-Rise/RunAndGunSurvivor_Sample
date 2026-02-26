@@ -2,22 +2,16 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float deleteTime = 3.0f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //弾が消滅するまでの時間
+
     void Start()
     {
-        Destroy(gameObject,deleteTime);
-        
+        //生成と同時に時間差で消滅        
     }
 
-    // Update is called once per frame
-    void Update()
+    //何かとぶつかったら消滅
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-            Destroy(gameObject);
     }
 }
