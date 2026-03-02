@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("’ÇƒXƒs[ƒh")]
-    public float cameraSpeed = 2.0f;
+    GameObject player; //å¯¾è±¡Player
+    Vector3 diff; //è·é›¢ã®å·®
 
-    GameObject player; //‘ÎÛPlayer
-    Vector3 differencePos; //‹——£‚Ì·
-    Vector3 targetPos;
+    [Header("è¿½éšã‚¹ãƒ”ãƒ¼ãƒ‰")]
+    public float followSpeed = 2.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        differencePos = player.transform.position - transform.position;
+        diff = player.transform.position - transform.position;
     }
 
     // Update is called once per frame
@@ -20,8 +20,10 @@ public class CameraController : MonoBehaviour
     {
         if(player != null)
         {
-            targetPos = player.transform.position - differencePos;
-            transform.position = Vector3.Lerp(transform.position,targetPos, Time.deltaTime * cameraSpeed);
+            transform.position = Vector3.Lerp(
+                transform.position,
+                player.transform.position - diff,
+                Time.deltaTime * followSpeed);
         }
     }
 }
