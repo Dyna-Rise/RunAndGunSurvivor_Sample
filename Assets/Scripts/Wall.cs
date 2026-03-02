@@ -22,59 +22,24 @@ public class Wall : MonoBehaviour
 
     void Start()
     {
-        //振動対象の初期値を取得
-        startPosition = damageBody.transform.localPosition;
+       
     }
 
     void Update()
     {
-        if (currentDamage != null)
-        {
-            z = (amplitude * 0.01f) * Mathf.Sin(Time.time * speed);
-            Debug.Log("移動座標:" + z);
-            damageBody.transform.localPosition = startPosition + new Vector3(z, 0, 0);
-        }
+        
     }
 
     //衝突
     void OnTriggerEnter(Collider other)
     {
-        if (currentDamage != null) return; //ダメージコルーチン中ならキャンセル
-
-        //衝突相手が「Bullet」の場合
-        if(other.gameObject.tag == "Bullet")
-        {
-            if(life > 0)　//lifeが残っていればダメージ
-            {
-                //ダメージコルーチンを発動
-                currentDamage = StartCoroutine(DamageCol());
-            }
-            else //lifeがなければ破壊
-            {
-                //もしエフェクトプレハブが存在していれば
-                if (effectPrefab != null)
-                {
-                    //エフェクトプレハブを生成
-                    Instantiate(
-                        effectPrefab,
-                        transform.position,
-                        Quaternion.identity);
-                }
-
-                //Wall自身は削除
-                Destroy(gameObject);
-            }
-        }    
+      
     }
 
     //ダメージコルーチン
     IEnumerator DamageCol()
-    {
-        life--; //耐久力を減らす
-        yield return new WaitForSeconds(damegeTime);
-        currentDamage = null; //コルーチン参照を解放
+    {        
         yield return new WaitForSeconds(0.1f);
-        //振動していたボディをもとの位置に戻す
-        damageBody.transform.localPosition = new Vector3(0, 0, 0);
+        
     }
 }

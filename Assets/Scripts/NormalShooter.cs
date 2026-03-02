@@ -24,36 +24,11 @@ public class NormalShooter : MonoBehaviour
 
     void Shoot()
     {
-        if (bulletManager.GetBulletRemaining() > 0)
-        {
-            //Bulletプレハブを生成
-            GameObject obj = Instantiate(
-                bulletPrefabs,
-                gate.transform.position,
-                Quaternion.Euler(90, 0, 0)
-                );
-
-            //生成したBulletをBulletsオブジェクトにまとめる
-            obj.transform.parent = bullets.transform;
-
-            //生成したBullet自身のRigidbodyを参照
-            Rigidbody bulletRbody = obj.GetComponent<Rigidbody>();
-            //前方（Z軸）に飛ばす
-            bulletRbody.AddForce(new Vector3(0, 0, shootSpeed), ForceMode.Impulse);
-
-            //bulletを消費
-            bulletManager.ConsumeBullet();
-        }
-        else //残弾がない
-        {
-            //マガジンを消費して弾を補充
-            bulletManager.RecoverBullet();
-        }
+       
     }
 
     void Start()
     {
-        //指定したタグを持っているオブジェクトを検索
-        bullets = GameObject.FindGameObjectWithTag("Bullets"); 
+        
     }    
 }
