@@ -12,10 +12,13 @@ public class NormalShooter : MonoBehaviour
     public GameObject gate; //生成位置
 
     [Header("弾速")]
-    public float shootSpeed = 10.0f; //弾速
+    public float shootSpeed = 30.0f; //弾速
 
     GameObject bullets; //生成した弾をまとめるオブジェクト
-    
+
+    const int maxShootPower = 3;
+    int shootPower = 1;
+
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
@@ -55,5 +58,16 @@ public class NormalShooter : MonoBehaviour
     {
         //指定したタグを持っているオブジェクトを検索
         bullets = GameObject.FindGameObjectWithTag("Bullets"); 
-    }    
+    }
+
+    public void ShootPowerUp()
+    {
+        shootPower++;
+        if (shootPower > maxShootPower) shootPower = maxShootPower;
+    }
+
+    public int GetShootPower()
+    {
+        return shootPower;
+    }
 }

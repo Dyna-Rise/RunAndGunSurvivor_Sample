@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class PlayerFollower : MonoBehaviour
 {
     GameObject player; //対象Player
     Vector3 diff; //距離の差
 
     [Header("追随スピード")]
-    public float followSpeed = 2.0f;
+    public float followSpeed = 4.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
