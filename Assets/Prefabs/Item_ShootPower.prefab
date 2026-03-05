@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   type: 1
   effectPrefab: {fileID: 6503668321523386183, guid: bfd64a9de980c964181c199c2bec0a03, type: 3}
+  deleteTime: 15
 --- !u!1 &7620960166558541644
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 347fab90fd780bb4bb008a225867f035, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

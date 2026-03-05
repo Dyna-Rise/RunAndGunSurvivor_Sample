@@ -11,7 +11,7 @@ public class Item : MonoBehaviour
 {
     public ItemType type;
     public GameObject effectPrefab;
-    public float deleteTime = 15.0f;
+    public float deleteTime = 15.0f;    
 
     void Start()
     {
@@ -22,6 +22,7 @@ public class Item : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            GameObject canvas = GameObject.FindGameObjectWithTag("UI");
             switch (type)
             {
                 case ItemType.Magazine:
@@ -29,9 +30,12 @@ public class Item : MonoBehaviour
                     break;
                 case ItemType.ShootPower:
                     other.gameObject.GetComponent<NormalShooter>().ShootPowerUp();
+                    canvas.GetComponent<UIController>().UpdateGuns();
                     break;
                 case ItemType.LifeUp:
-                    other.gameObject.GetComponent<PlayerRun>().LifeUP();
+                    PlayerRun playerRun = other.gameObject.GetComponent<PlayerRun>();
+                    playerRun.LifeUP();
+                    canvas.GetComponent<UIController>().UpdateLife(playerRun.Life());
                     break;
             }
 

@@ -10,7 +10,7 @@ public class BulletManager : MonoBehaviour
     public int magazine = 1; //マガジン数 ※充填時に消費
 
     [Header("充填時間")]
-    public float recoveryTime = 3.0f; //マガジン補充時間
+    public float recoveryTime = 1.0f; //マガジン補充時間
     float counter; //充填までの残時間
 
     Coroutine bulletRecover; //発生中のコルーチン情報の参照用
@@ -61,7 +61,7 @@ public class BulletManager : MonoBehaviour
 
         while(counter > 0)
         {
-            yield return new WaitForSeconds(1.0f); //ウェイト処理
+            yield return new WaitForSeconds(0.3f); //ウェイト処理
             counter--;
         }
         AddBullet(maxRemaining);//弾数充填

@@ -85,7 +85,7 @@ public class PlayerRun : MonoBehaviour
             moveDirection.x = ratioX * speedX;
         }
 
-        Debug.Log(moveDirection.x);
+        //Debug.Log(moveDirection.x);
         moveDirection.y -= gravity * Time.deltaTime;
 
         Vector3 globalDirection = transform.TransformDirection(moveDirection);
@@ -141,6 +141,8 @@ public class PlayerRun : MonoBehaviour
         if(hit.gameObject.tag == "Enemy")
         {
             life--;
+            GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+            canvas.GetComponent<UIController>().UpdateLife(life);
             recoverTime = StunDuration;
 
             //animator.SetTrigger("damage");

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3822265577385340530}
   - component: {fileID: 100586865527702026}
   m_Layer: 7
-  m_Name: Item_Magazine
+  m_Name: Item_Life
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861b4a8899a381c478d195b3cedaa00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  type: 0
+  type: 2
   effectPrefab: {fileID: 6503668321523386183, guid: bfd64a9de980c964181c199c2bec0a03, type: 3}
   deleteTime: 15
 --- !u!1 &7620960166558541644
@@ -186,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79b27d978e4d8f7429c5d629ec93da04, type: 2}
+  - {fileID: 2100000, guid: 6d7cd095605817f46bf995c60373aa03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
