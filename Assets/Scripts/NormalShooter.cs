@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,14 +11,29 @@ public class NormalShooter : MonoBehaviour
     public GameObject gate; //生成位置
 
     [Header("弾速")]
-    public float shootSpeed = 10.0f; //弾速
+    public float shootSpeed = 30.0f; //弾速
 
     GameObject bullets; //生成した弾をまとめるオブジェクト
-    
+
+    const int maxShootPower = 3;
+    int shootPower = 1;
+
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
-        Shoot();
+        if (GameManager.gameState == GameState.retry)
+        {
+            GameManager.RetryScene();
+        }
+        else if(GameManager.gameState == GameState.result)
+        {
+            GameManager gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+            gm.NextScene(gm.nextScene);
+        }
+        else
+        {
+            Shoot();
+        }
     }
 
     void Shoot()
@@ -55,5 +69,27 @@ public class NormalShooter : MonoBehaviour
     {
         //指定したタグを持っているオブジェクトを検索
         bullets = GameObject.FindGameObjectWithTag("Bullets"); 
-    }    
+    }
+
+    public void ShootPowerUp()
+    {
+        shootPower++;
+        if (shootPower > maxShootPower) shootPower = maxShootPower;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateGun();
+
+    }
+
+    public void ShootPowerDown()
+    {
+        shootPower--;
+        if (shootPower <= 0) shootPower = 1;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateGun();
+    }
+
+    public int GetShootPower()
+    {
+        return shootPower;
+    }
 }

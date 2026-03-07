@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Bullets
   - Bullet
+  - Enemy
+  - UI
+  - Goal
+  - GM
   layers:
   - Default
   - TransparentFX
@@ -13,10 +17,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Item
+  - Bullet
+  - Trap
   - 
   - 
   - 
