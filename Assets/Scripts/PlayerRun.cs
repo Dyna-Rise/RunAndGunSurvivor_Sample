@@ -36,7 +36,17 @@ public class PlayerRun : MonoBehaviour
     {
         life++;
         if (life > DefaultLife) life = DefaultLife;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateLife(Life());
     }
+
+    public void LifeDown()
+    {
+        life--;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateLife(Life());
+    }
+
 
     bool IsStun()
     {
@@ -58,11 +68,12 @@ public class PlayerRun : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (GameManager.gameState == GameState.stageclear || GameManager.gameState == GameState.result) return;
         //if (Input.GetKeyDown("left")) MoveToLeft();
         //if (Input.GetKeyDown("right")) MoveToRight();
         //if (Input.GetKeyDown("space")) Jump();
@@ -85,7 +96,6 @@ public class PlayerRun : MonoBehaviour
             moveDirection.x = ratioX * speedX;
         }
 
-        //Debug.Log(moveDirection.x);
         moveDirection.y -= gravity * Time.deltaTime;
 
         Vector3 globalDirection = transform.TransformDirection(moveDirection);
@@ -130,7 +140,7 @@ public class PlayerRun : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDirection.y = speedJump;
-            animator.SetTrigger("jump");
+            //animator.SetTrigger("jump");
         }
     }
 
@@ -138,16 +148,26 @@ public class PlayerRun : MonoBehaviour
     {
         if (IsStun()) return;
 
-        if(hit.gameObject.tag == "Enemy")
+        if (hit.gameObject.tag == "Enemy")
         {
-            life--;
-            GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-            canvas.GetComponent<UIController>().UpdateLife(life);
+            LifeDown();
+            GetComponent<NormalShooter>().ShootPowerDown();
             recoverTime = StunDuration;
+
+            if (life <= 0) GameManager.gameState = GameState.gameover;
 
             //animator.SetTrigger("damage");
 
             hit.gameObject.GetComponent<Wall>().CreateEffect();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Goal")
+        {
+            GameManager.gameState = GameState.stageclear;
+        }
+    }
+
 }

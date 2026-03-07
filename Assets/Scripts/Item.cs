@@ -21,21 +21,17 @@ public class Item : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
-        {
-            GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        {            
             switch (type)
             {
                 case ItemType.Magazine:
-                    other.gameObject.GetComponent<BulletManager>().magazine++;
+                    other.gameObject.GetComponent<BulletManager>().AddMagazine();
                     break;
                 case ItemType.ShootPower:
                     other.gameObject.GetComponent<NormalShooter>().ShootPowerUp();
-                    canvas.GetComponent<UIController>().UpdateGuns();
                     break;
                 case ItemType.LifeUp:
-                    PlayerRun playerRun = other.gameObject.GetComponent<PlayerRun>();
-                    playerRun.LifeUP();
-                    canvas.GetComponent<UIController>().UpdateLife(playerRun.Life());
+                    other.gameObject.GetComponent<PlayerRun>().LifeUP();
                     break;
             }
 

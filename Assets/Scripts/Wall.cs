@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Wall : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class Wall : MonoBehaviour
             currentDamage = StartCoroutine(DamageCol());
             if (life <= 0)　//lifeが残っていなければ消滅
             {
+                ScoreManager.ScoreUp(100);
                 CreateEffect();
             }
         }

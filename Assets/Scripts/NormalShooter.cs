@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +21,19 @@ public class NormalShooter : MonoBehaviour
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
-        Shoot();
+        if (GameManager.gameState == GameState.retry)
+        {
+            GameManager.RetryScene();
+        }
+        else if(GameManager.gameState == GameState.result)
+        {
+            GameManager gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+            gm.NextScene(gm.nextScene);
+        }
+        else
+        {
+            Shoot();
+        }
     }
 
     void Shoot()
@@ -64,6 +75,17 @@ public class NormalShooter : MonoBehaviour
     {
         shootPower++;
         if (shootPower > maxShootPower) shootPower = maxShootPower;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateGun();
+
+    }
+
+    public void ShootPowerDown()
+    {
+        shootPower--;
+        if (shootPower <= 0) shootPower = 1;
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.GetComponent<UIController>().UpdateGun();
     }
 
     public int GetShootPower()

@@ -8,6 +8,8 @@ TagManager:
   - Bullet
   - Enemy
   - UI
+  - Goal
+  - GM
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - Enemy
   - Item
-  - 
-  - 
+  - Bullet
+  - Trap
   - 
   - 
   - 
