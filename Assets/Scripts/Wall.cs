@@ -16,6 +16,9 @@ public class Wall : MonoBehaviour
     public float speed = 75.0f; //振動スピード
     public float amplitude = 1.5f;  //振動量
 
+    [Header("スコア点数")]
+    public int point = 100;
+
     Vector3 startPosition; //振動対象の初期位置
     float z; //振動による移動座標
 
@@ -50,8 +53,8 @@ public class Wall : MonoBehaviour
             currentDamage = StartCoroutine(DamageCol(tag));
             if (life <= 0)　//lifeが残っていなければ消滅
             {
-                ScoreManager.ScoreUp(100);
-                CreateEffect();
+                ScoreManager.ScoreUp(point); //撃破によるスコアアップ
+                CreateEffect(); //エフェクト処理と削除
             }
         }
     }

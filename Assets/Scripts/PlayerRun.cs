@@ -4,52 +4,59 @@ using UnityEngine.InputSystem;
 
 public class PlayerRun : MonoBehaviour
 {
-    const int MinLane = -2;
-    const int MaxLane = 2;
-    const float LaneWidth = 1.0f;
-    const int DefaultLife = 3;
-    const float StunDuration = 0.5f;
+    const int MinLane = -2; //最小レーン番号
+    const int MaxLane = 2; //最大レーン番号
+    const float LaneWidth = 1.0f; //レーン幅
+    const int DefaultLife = 3; //最大体力
+    const float StunDuration = 0.5f; //硬直時間
 
     CharacterController controller;
     Animator animator;
 
-    Vector3 moveDirection = Vector3.zero;
-    int targetLane;
-    int life = DefaultLife;
-    float recoverTime = 0.0f;
+    Vector3 moveDirection = Vector3.zero; //Moveメソッドの目標値
+    int targetLane; //目標レーン番号
+    int life = DefaultLife; //現体力
+    float recoverTime = 0.0f; //硬直カウントダウン
 
-    float currentMoveInputX;
-    Coroutine resetIntervalCol;
+    float currentMoveInputX; //インプットされたX値
+    Coroutine resetIntervalCol; //インプットのインターバルコルーチン
 
-    public float gravity = 20.0f;
-    public float speedZ = 5.0f;
-    public float speedX = 3.0f;
-    public float speedJump = 8.0f;
-    public float accelerationZ = 10.0f;
+    [Header("重力・前進・横移動・ジャンプ")]
+    public float gravity = 20.0f; //重力加速値
+    public float speedZ = 5.0f; //前進スピード
+    public float speedX = 3.0f; //横移動スピード
+    public float speedJump = 8.0f; //ジャンプ力
 
-    public NormalSword normalSword;
+    [Header("前進加速力")]
+    public float accelerationZ = 10.0f; //加速値
 
+    [Header("ソードのスクリプト")]
+    public NormalSword normalSword; //ソード中の動きを封じるため
+
+    //現体力の取得
     public int Life()
     {
         return life;
     }
 
+    //体力の回復
     public void LifeUP()
     {
         life++;
         if (life > DefaultLife) life = DefaultLife;
-        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-        canvas.GetComponent<UIController>().UpdateLife(Life());
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI"); //UIタグの検索
+        canvas.GetComponent<UIController>().UpdateLife(Life()); //UIの更新
     }
 
+    //体力のダメージによる減少
     public void LifeDown()
     {
         life--;
-        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-        canvas.GetComponent<UIController>().UpdateLife(Life());
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI"); //UIタグの検索
+        canvas.GetComponent<UIController>().UpdateLife(Life()); //UIの更新
     }
 
-
+    //硬直カウントダウン中か体力0なら止まる
     bool IsStun()
     {
         return recoverTime > 0.0f || life <= 0;
@@ -57,7 +64,7 @@ public class PlayerRun : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-        if (normalSword.GetIsSword()) return;
+        if (normalSword.GetIsSword()) return; //ソード中なら何もできない
 
         if (resetIntervalCol == null)
         {
@@ -67,7 +74,7 @@ public class PlayerRun : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (normalSword.GetIsSword()) return;
+        if (normalSword.GetIsSword()) return; //ソード中なら何もできない
 
         Jump();
     }
@@ -84,29 +91,36 @@ public class PlayerRun : MonoBehaviour
         //if (Input.GetKeyDown("right")) MoveToRight();
         //if (Input.GetKeyDown("space")) Jump();
 
+        //左右の入力があれば
         if (currentMoveInputX < 0) MoveToLeft();
         if (currentMoveInputX > 0) MoveToRight();
 
+        //硬直中なら何もできない
         if (IsStun())
         {
             moveDirection.x = 0.0f;
             moveDirection.z = 0.0f;
-            recoverTime -= Time.deltaTime;
+            recoverTime -= Time.deltaTime; //カウントダウンする
         }
         else
         {
+            //moveDirectionのZ(前進加速)を決める
             float acceleratedZ = moveDirection.z + (accelerationZ * Time.deltaTime);
             moveDirection.z = Mathf.Clamp(acceleratedZ, 0, speedZ);
 
+            //moveDirectionのX(横移動)を決める
             float ratioX = (targetLane * LaneWidth - transform.position.x) / LaneWidth;
             moveDirection.x = ratioX * speedX;
         }
 
+        //moveDirectionのX(重力)を決める
         moveDirection.y -= gravity * Time.deltaTime;
 
+        //ローカルの進行方向をグローバルの進行方向に切り替えてMoveメソッドで動かす
         Vector3 globalDirection = transform.TransformDirection(moveDirection);
         controller.Move(globalDirection * Time.deltaTime);
 
+        //地面に接触していたらY軸の力は0
         if (controller.isGrounded) moveDirection.y = 0;
 
         //animator.SetBool("run", moveDirection.z > 0.0f);
@@ -119,7 +133,7 @@ public class PlayerRun : MonoBehaviour
         {
             targetLane--;
             currentMoveInputX = 0;
-            resetIntervalCol = StartCoroutine(ResetInterval());
+            resetIntervalCol = StartCoroutine(ResetIntervalCol());
         }
     }
 
@@ -130,11 +144,11 @@ public class PlayerRun : MonoBehaviour
         {
             targetLane++;
             currentMoveInputX = 0;
-            resetIntervalCol = StartCoroutine(ResetInterval());
+            resetIntervalCol = StartCoroutine(ResetIntervalCol());
         }
     }
 
-    IEnumerator ResetInterval()
+    IEnumerator ResetIntervalCol()
     {
         yield return new WaitForSeconds(0.1f);
         resetIntervalCol = null;
@@ -156,19 +170,22 @@ public class PlayerRun : MonoBehaviour
 
         if (hit.gameObject.tag == "Enemy")
         {
-            LifeDown();
-            GetComponent<NormalShooter>().ShootPowerDown();
-            recoverTime = StunDuration;
+            LifeDown(); //体力減少
+            GetComponent<NormalShooter>().ShootPowerDown(); //威力も減らす
+            recoverTime = StunDuration; //硬直カウントダウンの開始
 
-            if (life <= 0) GameManager.gameState = GameState.gameover;
+            //もし体力0ならゲームオーバー
+            if (life <= 0) GameManager.gameState = GameState.gameover; 
 
             //animator.SetTrigger("damage");
 
+            //相手のエフェクト発生（と消滅）を発動
             hit.gameObject.GetComponent<Wall>().CreateEffect();
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    //ゴールに触れたらステータスをゲームクリアに変更
+    void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Goal")
         {

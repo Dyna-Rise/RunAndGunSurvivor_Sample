@@ -15,26 +15,28 @@ public class NormalShooter : MonoBehaviour
 
     GameObject bullets; //生成した弾をまとめるオブジェクト
 
-    const int maxShootPower = 3;
-    int shootPower = 1;
+    const int maxShootPower = 3;　//最大威力
+    int shootPower = 1; //現在威力
 
-    public NormalSword normalSword;
+    [Header("ソードのスクリプト")]
+    public NormalSword normalSword; //ソード中の動きを封じるため
 
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
-        if (normalSword.GetIsSword()) return;
+        if (normalSword.GetIsSword()) return;　//ソード中なら何もできない
 
-        if (GameManager.gameState == GameState.retry)
+        //リトライ状態の時ならやり直し
+        if (GameManager.gameState == GameState.retry) 
         {
             GameManager.RetryScene();
         }
-        else if(GameManager.gameState == GameState.result)
+        else if(GameManager.gameState == GameState.result) //リザルト状態の時ならネクスト
         {
             GameManager gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
             gm.NextScene(gm.nextScene);
         }
-        else
+        else //ゲームステータスがプレイ中なら
         {
             Shoot();
         }
@@ -75,23 +77,25 @@ public class NormalShooter : MonoBehaviour
         bullets = GameObject.FindGameObjectWithTag("Bullets"); 
     }
 
+    //威力を上げる
     public void ShootPowerUp()
     {
-        shootPower++;
-        if (shootPower > maxShootPower) shootPower = maxShootPower;
-        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-        canvas.GetComponent<UIController>().UpdateGun();
-
+        shootPower++; //威力を上げる
+        if (shootPower > maxShootPower) shootPower = maxShootPower; //最大威力までに抑える
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI"); //UIタグの検索
+        canvas.GetComponent<UIController>().UpdateGun(); //UIの更新
     }
 
+    //威力が下がる
     public void ShootPowerDown()
     {
-        shootPower--;
-        if (shootPower <= 0) shootPower = 1;
-        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-        canvas.GetComponent<UIController>().UpdateGun();
+        shootPower--;//威力を下がる
+        if (shootPower <= 0) shootPower = 1;//最小でも1
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");//UIタグの検索
+        canvas.GetComponent<UIController>().UpdateGun();//UIの更新
     }
 
+    //現在威力の取得
     public int GetShootPower()
     {
         return shootPower;

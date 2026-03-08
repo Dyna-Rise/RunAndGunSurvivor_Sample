@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletManager : MonoBehaviour
@@ -14,9 +13,10 @@ public class BulletManager : MonoBehaviour
     public float recoveryTime = 1.0f; //マガジン補充時間
     float counter; //充填までの残時間
 
-    Coroutine bulletRecover; //発生中のコルーチン情報の参照用
+    [Header("UIオブジェクト")]
+    public UIController ui;
 
-    public UIController ui; 
+    Coroutine bulletRecover; //発生中のコルーチン情報の参照用
 
     //弾の消費
     public void ConsumeBullet()
@@ -24,7 +24,7 @@ public class BulletManager : MonoBehaviour
         if (bulletRemaining > 0) //残弾があれば
         {
             bulletRemaining--; //弾を消費
-            ui.UpdateBullet();
+            ui.UpdateBullet(); //UIを更新
         }
     }
 
@@ -44,13 +44,14 @@ public class BulletManager : MonoBehaviour
     public void AddBullet(int num)
     {
         bulletRemaining = maxRemaining;
-        ui.UpdateBullet();
+        ui.UpdateBullet(); //UIを更新
     }
 
+    //マガジンの補充
     public void AddMagazine()
     {
         magazine++;
-        ui.UpdateMagazine();
+        ui.UpdateMagazine();　 //UIを更新
     }
 
     //充填メソッド
@@ -62,7 +63,7 @@ public class BulletManager : MonoBehaviour
             if (magazine > 0) //マガジンの残数があれば補充可能
             {
                 magazine--; //マガジンは消費
-                ui.UpdateMagazine();
+                ui.UpdateMagazine(); //UI更新
 
                 //補充コルーチンの発動(Coroutine型の変数に発動したコルーチンの情報を参照させる
                 //※Coroutine型の変数が何かを参照していれば、すでにコルーチンが走っていると見なされる（コルーチンの終わりに解放予定）
@@ -74,7 +75,7 @@ public class BulletManager : MonoBehaviour
     //充填コルーチン
     IEnumerator RecoverBulletCol()
     {
-        ui.Reloding();
+        ui.Reloding(); //UI（リロード中）を発動
         
         //カウンターの数字を整える
         counter = recoveryTime;

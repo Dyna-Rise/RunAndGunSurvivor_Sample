@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 7031923393653617556}
   - component: {fileID: 4463806872277953562}
   - component: {fileID: 4651138663019805355}
-  - component: {fileID: 4019091254355331285}
   m_Layer: 6
   m_Name: Wall
   m_TagString: Enemy
@@ -214,18 +213,3 @@ MonoBehaviour:
   damageBody: {fileID: 5826791584424243908}
   speed: 75
   amplitude: 1.5
---- !u!114 &4019091254355331285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5994595111847921743}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48a7dbff5b82fb4f9614ef9af7ef756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  bulletPrefabs: {fileID: 8003753089110435615, guid: 09ae29b52b25c224abeb250caa2cf592, type: 3}
-  shootSpeed: 10
-  shootInterval: 3
