@@ -10,6 +10,7 @@ TagManager:
   - UI
   - Goal
   - GM
+  - Sword
   layers:
   - Default
   - TransparentFX

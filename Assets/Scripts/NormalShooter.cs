@@ -18,9 +18,13 @@ public class NormalShooter : MonoBehaviour
     const int maxShootPower = 3;
     int shootPower = 1;
 
+    public NormalSword normalSword;
+
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
+        if (normalSword.GetIsSword()) return;
+
         if (GameManager.gameState == GameState.retry)
         {
             GameManager.RetryScene();

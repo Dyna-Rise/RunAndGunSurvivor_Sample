@@ -27,6 +27,8 @@ public class PlayerRun : MonoBehaviour
     public float speedJump = 8.0f;
     public float accelerationZ = 10.0f;
 
+    public NormalSword normalSword;
+
     public int Life()
     {
         return life;
@@ -55,6 +57,8 @@ public class PlayerRun : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        if (normalSword.GetIsSword()) return;
+
         if (resetIntervalCol == null)
         {
             Vector2 inputVector = value.Get<Vector2>();
@@ -63,6 +67,8 @@ public class PlayerRun : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
+        if (normalSword.GetIsSword()) return;
+
         Jump();
     }
     void Start()
