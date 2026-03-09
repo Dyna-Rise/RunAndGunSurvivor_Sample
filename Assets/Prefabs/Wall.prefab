@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2933419984105773680
 Transform:
   m_ObjectHideFlags: 0
@@ -124,6 +124,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2933419984105773680}
+  - {fileID: 8124215545874658012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7413634969909610074
@@ -213,3 +214,78 @@ MonoBehaviour:
   damageBody: {fileID: 5826791584424243908}
   speed: 75
   amplitude: 1.5
+  point: 100
+--- !u!1001 &3805052301567513605
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6064637708677674118}
+    m_Modifications:
+    - target: {fileID: 4060026200792656188, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_Name
+      value: BrickToy_3D_LP_Fighter_Robots_2_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+--- !u!4 &8124215545874658012 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4931793531122902745, guid: adccb2ea9da34ef4b865bf65f03f8117, type: 3}
+  m_PrefabInstance: {fileID: 3805052301567513605}
+  m_PrefabAsset: {fileID: 0}

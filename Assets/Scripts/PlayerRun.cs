@@ -33,6 +33,9 @@ public class PlayerRun : MonoBehaviour
     [Header("ソードのスクリプト")]
     public NormalSword normalSword; //ソード中の動きを封じるため
 
+    [Header("アニメオブジェクト")]
+    public GameObject animeBody;
+
     //現体力の取得
     public int Life()
     {
@@ -81,7 +84,7 @@ public class PlayerRun : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        //animator = GetComponent<Animator>();
+        animator = animeBody.GetComponent<Animator>();
     }
 
     void Update()
@@ -160,7 +163,7 @@ public class PlayerRun : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDirection.y = speedJump;
-            //animator.SetTrigger("jump");
+            animator.SetTrigger("jump");
         }
     }
 
@@ -175,9 +178,13 @@ public class PlayerRun : MonoBehaviour
             recoverTime = StunDuration; //硬直カウントダウンの開始
 
             //もし体力0ならゲームオーバー
-            if (life <= 0) GameManager.gameState = GameState.gameover; 
+            if (life <= 0)
+            {
+                GameManager.gameState = GameState.gameover;
+                animator.SetBool("retry", true);
+            }
 
-            //animator.SetTrigger("damage");
+            animator.SetTrigger("damage");
 
             //相手のエフェクト発生（と消滅）を発動
             hit.gameObject.GetComponent<Wall>().CreateEffect();
@@ -188,8 +195,9 @@ public class PlayerRun : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Goal")
-        {
+        {            
             GameManager.gameState = GameState.stageclear;
+            animator.SetBool("result", true);
         }
     }
 
