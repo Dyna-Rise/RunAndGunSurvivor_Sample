@@ -12,6 +12,9 @@ public class PlayerRun : MonoBehaviour
 
     CharacterController controller;
     Animator animator;
+    [Header("対象アニメオブジェクト")]
+    public GameObject animeBody; //対象body
+    bool isAnime; //retry,result切り替え済みか
 
     Vector3 moveDirection = Vector3.zero; //Moveメソッドの目標値
     int targetLane; //目標レーン番号
@@ -32,9 +35,6 @@ public class PlayerRun : MonoBehaviour
 
     [Header("ソードのスクリプト")]
     public NormalSword normalSword; //ソード中の動きを封じるため
-
-    [Header("アニメオブジェクト")]
-    public GameObject animeBody;
 
     //現体力の取得
     public int Life()
@@ -181,13 +181,18 @@ public class PlayerRun : MonoBehaviour
             if (life <= 0)
             {
                 GameManager.gameState = GameState.gameover;
-                animator.SetBool("retry", true);
+                if (!isAnime)
+                {
+                    animator.SetTrigger("retry");
+                    isAnime = true;
+                }
             }
 
             animator.SetTrigger("damage");
 
             //相手のエフェクト発生（と消滅）を発動
             hit.gameObject.GetComponent<Wall>().CreateEffect();
+
         }
     }
 
@@ -197,7 +202,11 @@ public class PlayerRun : MonoBehaviour
         if(other.gameObject.tag == "Goal")
         {            
             GameManager.gameState = GameState.stageclear;
-            animator.SetBool("result", true);
+            if (!isAnime)
+            {
+                animator.SetTrigger("result");
+                isAnime = true;
+            }
         }
     }
 
