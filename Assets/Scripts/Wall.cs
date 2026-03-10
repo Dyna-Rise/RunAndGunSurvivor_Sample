@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -24,10 +25,15 @@ public class Wall : MonoBehaviour
 
     Coroutine currentDamage; //ダメージコルーチン
 
+    AudioSource enemyAudio;
+    [Header("SE音源")]
+    public AudioClip se_Damage;
+
     void Start()
     {
         //振動対象の初期値を取得
         startPosition = damageBody.transform.localPosition;
+        enemyAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -48,11 +54,12 @@ public class Wall : MonoBehaviour
         //衝突相手が「Bullet」の場合
         if(other.gameObject.tag == "Bullet" || other.gameObject.tag == "Sword")
         {
+            enemyAudio.PlayOneShot(se_Damage);
             string tag = other.gameObject.tag;
             //ダメージコルーチンを発動
             currentDamage = StartCoroutine(DamageCol(tag));
             if (life <= 0)　//lifeが残っていなければ消滅
-            {
+            {                
                 ScoreManager.ScoreUp(point); //撃破によるスコアアップ
                 CreateEffect(); //エフェクト処理と削除
             }

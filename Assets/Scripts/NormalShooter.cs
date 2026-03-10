@@ -21,6 +21,10 @@ public class NormalShooter : MonoBehaviour
     [Header("ソードのスクリプト")]
     public NormalSword normalSword; //ソード中の動きを封じるため
 
+    AudioSource playerAudio;
+    [Header("SE音源")]
+    public AudioClip se_Shot;
+
     //InputAction(Playerマップ)のAttackアクションがおされたら
     void OnAttack(InputValue value)
     {
@@ -46,6 +50,7 @@ public class NormalShooter : MonoBehaviour
     {
         if (bulletManager.GetBulletRemaining() > 0)
         {
+            playerAudio.PlayOneShot(se_Shot);
             //Bulletプレハブを生成
             GameObject obj = Instantiate(
                 bulletPrefabs,
@@ -74,7 +79,8 @@ public class NormalShooter : MonoBehaviour
     void Start()
     {
         //指定したタグを持っているオブジェクトを検索
-        bullets = GameObject.FindGameObjectWithTag("Bullets"); 
+        bullets = GameObject.FindGameObjectWithTag("Bullets");
+        playerAudio = GetComponent<AudioSource>();
     }
 
     //威力を上げる

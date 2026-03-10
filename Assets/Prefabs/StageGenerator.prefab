@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   character: {fileID: 0}
   stageChips:
-  - {fileID: 7362676403919762916, guid: d91364d212b04264c813feca6406c5f3, type: 3}
+  - {fileID: 7362676403919762916, guid: 07b74bddd8905344cb5bc5eaf54d5c4c, type: 3}
+  - {fileID: 7362676403919762916, guid: bc6718802d3d4b24886e2d1007eee2fb, type: 3}
   startChipIndex: 1
   preInstantiate: 5
   generatedStageList:

@@ -18,6 +18,15 @@ public class BulletManager : MonoBehaviour
 
     Coroutine bulletRecover; //発生中のコルーチン情報の参照用
 
+    AudioSource playerAudio;
+    [Header("SE音源")]
+    public AudioClip se_Reload;
+
+    void Start()
+    {
+        playerAudio = GetComponent<AudioSource>();
+    }
+
     //弾の消費
     public void ConsumeBullet()
     {
@@ -62,6 +71,7 @@ public class BulletManager : MonoBehaviour
         {
             if (magazine > 0) //マガジンの残数があれば補充可能
             {
+                playerAudio.PlayOneShot(se_Reload);
                 magazine--; //マガジンは消費
                 ui.UpdateMagazine(); //UI更新
 

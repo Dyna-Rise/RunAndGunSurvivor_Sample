@@ -14,6 +14,9 @@ public class UIController : MonoBehaviour
     public GameObject gunIcon;
     [Header("銃の画像（配列）")]
     public Sprite[] gunSprites;
+    [Header("ガイドパネル")]
+    public GameObject infoPanel;
+    public GameObject guidePanel;
 
     [Header("バレット/マガジンパネル")]
     public GameObject bulletPanel;
@@ -102,6 +105,9 @@ public class UIController : MonoBehaviour
         if (GameManager.gameState == GameState.gameover)
         {
             //余計なものは非表示
+            lifePanel.SetActive(false);
+            infoPanel.SetActive(false);
+            guidePanel.SetActive(false);
             gunPanel.SetActive(false);
             bulletPanel.SetActive(false);
             magazinePanel.SetActive(false);
@@ -114,6 +120,9 @@ public class UIController : MonoBehaviour
         else if (GameManager.gameState == GameState.stageclear)
         {
             //余計なものは非表示
+            lifePanel.SetActive(false);
+            infoPanel.SetActive(false);
+            guidePanel.SetActive(false);
             gunPanel.SetActive(false);
             bulletPanel.SetActive(false);
             magazinePanel.SetActive(false);
