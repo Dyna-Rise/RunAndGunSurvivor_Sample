@@ -1,7 +1,5 @@
 using System.Collections;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class Wall : MonoBehaviour
 {
